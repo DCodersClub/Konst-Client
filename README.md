@@ -1,2 +1,3 @@
-# Konst-Client
-React JS Client for Konst Portal
+Konst CLient React 
+
+Run **yarn start**
