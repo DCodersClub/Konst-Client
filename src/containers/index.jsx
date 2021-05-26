@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
 
 import { GlobalStyles } from "../components/styled";
+import { ViewportProvider } from "../hooks/useViewportWidth";
 
 const App = () => {
   const theme = useSelector((state) => state.theme);
@@ -13,9 +14,11 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <button onClick={handelThemeSwitch}>Change</button>
-      <pre>{JSON.stringify(theme)}</pre>
+      <ViewportProvider>
+        <GlobalStyles />
+        <button onClick={handelThemeSwitch}>Fuck </button>
+        <pre>{JSON.stringify(theme, null, 2)}</pre>
+      </ViewportProvider>
     </ThemeProvider>
   );
 };
