@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
-const theme = (field) => {
+export const transistion = {
+  popup: () => "cubic-bezier(0.075, 0.82, 0.165, 1)",
+};
+
+export const putTheme = (field) => {
   return ({ theme }) => {
     // eslint-disable-next-line no-console
     if (!theme[field]) console.warn("Unknow Field", field);
@@ -14,8 +18,9 @@ export const GlobalStyles = createGlobalStyle`
   }
   body {
     min-height: 100vh;
-    color: ${theme("grey500") || "#444"};
-    background-color: ${theme("white") || "#fbfbfb"};
+    color: ${putTheme("fontColor") || "#444"};
+    background-color: ${putTheme("bgColor") || "#fbfbfb"};
+    transition: all 100ms linear;
     font-family: ${({ theme }) => theme.font.content};
   }
 `;

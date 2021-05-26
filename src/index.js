@@ -4,7 +4,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 
-// import "./fonts/PacaembuVar-subset.woff2";
+import "./fonts/PacaembuVar-subset.woff2";
 import "./fonts/PacaembuVar-latin.woff2";
 import "./fonts/MulishVar-latin.woff2";
 
