@@ -1,13 +1,4 @@
-const light = {
-  name: "light",
-  bgColor: "#fafafa",
-  fontColor: "#444",
-};
-const dark = {
-  name: "dark",
-  bgColor: "#444",
-  fontColor: "#fafafa",
-};
+import { dark, light } from "../theme";
 
 const themeReducer = (state = light, action) => {
   switch (action.type) {
