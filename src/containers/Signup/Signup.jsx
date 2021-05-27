@@ -28,8 +28,8 @@ const GroupField = styled.div`
 `;
 
 const Form = () => {
-  const { handleSubmit, register } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { handleSubmit } = useForm();
+  const onSubmit = (data) => alert(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
