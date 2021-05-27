@@ -2,20 +2,30 @@ import React from "react";
 import styled from "styled-components";
 import { AlertCircle } from "react-feather";
 
-import { putTheme } from "./styled";
+import { putTheme } from "../styled";
+
+const FieldContainer = styled.div`
+  :hover {
+    label {
+      color: ${putTheme("white")}50;
+    }
+  }
+`;
 
 const LableText = styled.label`
   display: block;
-  color: ${putTheme("white")}0;
+  color: ${putTheme("white")};
   margin-bottom: 0.25rem;
 `;
 
 const InputBox = styled.input`
   display: block;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
   padding: 0.3rem;
+  width: 100%;
+
   font-size: 1.125rem;
+
+  background-color: rgba(255, 255, 255, 0.2);
 
   ::placeholder {
     color: ${putTheme("white")}70;
@@ -29,19 +39,12 @@ const InputBox = styled.input`
   }
 `;
 
-const FieldContainer = styled.div`
-  :hover {
-    label {
-      color: ${putTheme("white")}50;
-    }
-  }
-`;
-
 const ErrorMessage = styled.span`
-  margin-left: 0.5rem;
   color: ${putTheme("white")};
   font-size: 85%;
   font-weight: 600;
+
+  margin-left: 0.5rem;
 `;
 
 const Error = ({ children }) => {
@@ -58,14 +61,21 @@ const Field = ({ label, register, type, placeholder, touch, error }) => {
   const errorMessage = error[name] ? error[name]?.message : null;
 
   return (
-    <FieldContainer>
+    <FieldContainer aria-errormessage={errorMessage}>
       <div>
-        <LableText aria-errormessage={errorMessage} htmlFor={name}>
+        <LableText htmlFor={name}>
           {label}
           {!!touch && <Error>{errorMessage}</Error>}
         </LableText>
       </div>
-      <InputBox type={type} placeholder={placeholder} id={name} {...register} />
+      <InputBox
+        type={type}
+        placeholder={placeholder}
+        id={name}
+        {...register}
+        aria-autocomplete="true"
+        aria-required="true"
+      />
     </FieldContainer>
   );
 };
