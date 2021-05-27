@@ -9,6 +9,7 @@ import { GlobalStyles } from "../components/styled";
 
 import Home from "./Home";
 import NavbarDesktop from "../components/NavbarDesktop";
+import Signup from "./Signup/Signup";
 
 const App = () => {
   const theme = useSelector((state) => state.theme);
@@ -19,6 +20,9 @@ const App = () => {
         <GlobalStyles />
         <NavbarDesktop />
         <Switch>
+          <Route path="/signup">
+            <Signup />
+          </Route>
           <Route path="/">
             <Home />
           </Route>

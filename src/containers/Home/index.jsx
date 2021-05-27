@@ -1,23 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { putTheme } from "../../components/styled";
+import { LandingSection } from "../common/Common";
 
 const Wrapper = styled.div`
   padding: 2rem 0;
   width: 90%;
   /* background-color: red; */
-`;
-
-const LandingSection = styled.section`
-  background-image: url("https://purry03.github.io/Konst-Frontend/img/banner.jpg");
-  background-color: black;
-  background-position: center;
-  background-size: cover;
-  min-height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const Subtitle = styled.div`
@@ -32,7 +21,7 @@ const Subtitle = styled.div`
 const Home = () => {
   return (
     <div>
-      <LandingSection>
+      <LandingSection center>
         <Wrapper className="text-xl">
           <span className="mb-2 inline-block">Konst {new Date().getFullYear()}</span>
           <h2 className="text-6xl font-extrabold tracking-tighter space-y-2">

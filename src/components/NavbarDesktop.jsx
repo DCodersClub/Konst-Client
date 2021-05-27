@@ -4,15 +4,14 @@ import styled, { css } from "styled-components";
 
 import { putTheme, transistion } from "./styled";
 import { Button } from "../components/styled/Button";
+import { translucant } from "./styled/Styles";
 
 const NavbarContainer = styled.nav`
   position: fixed;
   top: 0;
   width: 100%;
 
-  backdrop-filter: blur(3px);
-  background-color: ${putTheme("background") || "black"}bf;
-  color: ${putTheme("primary") || "green"};
+  ${translucant}
 
   display: flex;
   align-items: center;
