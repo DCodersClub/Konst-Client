@@ -11,8 +11,13 @@ const StyledButton = styled.button`
   ${ButtonCommon}
   background-color: ${putTheme("primary")};
   color: ${putTheme("background")};
+  margin: 0 auto;
+
+  :focus {
+    // To  Be Added
+  }
 `;
-// clip-path: ${({ coord }) => `circle(0% at ${coord[0]}px ${coord[1]}px)`};
+
 const IntraButtonWrapper = styled.button`
   ${ButtonCommon}
   position: relative;

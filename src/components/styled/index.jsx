@@ -15,6 +15,7 @@ export const putTheme = (field) => {
 export const GlobalStyles = createGlobalStyle`
   html {
     scroll-behavior: smooth;
+    font-size: 16px;
   }
   body {
     min-height: 100vh;
