@@ -65,7 +65,7 @@ const Navbar = () => {
           <MenuIcon handleSideBar={() => setSideBarOpen(true)} />
         </div>
       </NavbarContainer>
-
+      {/* TODO Add Side Here */}
       {sideBarOpen && "SideBar"}
     </>
   );

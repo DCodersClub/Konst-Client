@@ -18,8 +18,8 @@ export const GlobalStyles = createGlobalStyle`
   }
   body {
     min-height: 100vh;
-    color: ${putTheme("fontColor") || "#444"};
-    background-color: ${putTheme("bgColor") || "#fbfbfb"};
+    color: ${putTheme("white") || "#white"};
+    background-color: ${putTheme("background") || "#black"};
     transition: all 100ms linear;
     font-family: ${({ theme }) => theme.font.content};
   }

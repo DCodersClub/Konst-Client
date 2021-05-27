@@ -6,9 +6,9 @@ import { ThemeProvider } from "styled-components";
 import { ViewportProvider } from "../hooks/useViewportWidth";
 
 import { GlobalStyles } from "../components/styled";
-import Navbar from "../components/Navbar";
 
 import Home from "./Home";
+import NavbarDesktop from "../components/NavbarDesktop";
 
 const App = () => {
   const theme = useSelector((state) => state.theme);
@@ -17,7 +17,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <ViewportProvider>
         <GlobalStyles />
-        <Navbar />
+        <NavbarDesktop />
         <Switch>
           <Route path="/">
             <Home />
