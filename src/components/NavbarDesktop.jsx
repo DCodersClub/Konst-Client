@@ -6,6 +6,7 @@ import { putTheme, transistion } from "./styled";
 import { Button } from "../components/styled/Button";
 import NavbarContainer from "./NavbarContainer";
 import Logo from "./Logo";
+import { useSelector } from "react-redux";
 
 const NavLinkWrapper = styled.li`
   font-size: 1.2rem;
@@ -59,6 +60,27 @@ const NavLink = ({ to, children }) => {
   );
 };
 
+const NavbarRight = () => {
+  const user = useSelector((state) => state.userState.user);
+  if (user)
+    return (
+      <div className="ml-auto space-x-2">
+        <h2>{`${user.name.first} ${user.name.last}`}</h2>
+      </div>
+    );
+
+  return (
+    <div className="ml-auto space-x-2">
+      <Button intractive>
+        <Link to="/signin">Sign In</Link>
+      </Button>
+      <Button intractive>
+        <Link to="/signup">Sign Up</Link>
+      </Button>
+    </div>
+  );
+};
+
 const NavbarDesktop = () => {
   return (
     <NavbarContainer>
@@ -70,14 +92,7 @@ const NavbarDesktop = () => {
         <NavLink to="/certification">Certification</NavLink>
         <NavLink to="/halloffame">Hall Of Fame</NavLink>
       </ul>
-      <div className="ml-auto space-x-2">
-        <Button intractive>
-          <Link to="/signin">Sign In</Link>
-        </Button>
-        <Button intractive>
-          <Link to="/signup">Sign Up</Link>
-        </Button>
-      </div>
+      <NavbarRight />
     </NavbarContainer>
   );
 };

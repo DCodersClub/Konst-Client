@@ -5,8 +5,16 @@ import { Field, GroupField } from "../../components/Form";
 import formConfig from "./form.config";
 import { Button } from "../../components/styled/Button";
 import useMediaQuery from "../../hooks/useMediaQuary";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../../actions/user";
 
 const Form = () => {
+  const data = useSelector((store) => store.userState.user);
+  const loading = useSelector((store) => store.userState.loading);
+  const error = useSelector((store) => store.userState);
+
+  if (error) console.log(error);
+
   const {
     handleSubmit,
     register,
@@ -17,10 +25,9 @@ const Form = () => {
   });
 
   const medium = useMediaQuery("(min-width: 640px)");
+  const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data, null, 2));
-  };
+  const onSubmit = (data) => dispatch(signup(data));
 
   const nameField = (
     <>
@@ -63,7 +70,7 @@ const Form = () => {
       />
       <div className="pt-2">
         <Button full className="mx-auto">
-          Submit
+          {loading ? "loading" : "Submit"}
         </Button>
       </div>
     </form>

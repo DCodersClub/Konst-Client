@@ -11,4 +11,4 @@ const NavLink = ({ to, children }) => {
   );
 };
 
-export default NavLink;
+export default React.memo(NavLink);
