@@ -1,74 +1,24 @@
-import React, { useContext, useState } from "react";
-import styled, { ThemeContext } from "styled-components";
-import { Sun, Moon, Menu } from "react-feather";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import NavbarDesktop from "./NavbarDesktop";
 
-import { putTheme, transistion } from "./styled";
-
-const NavbarContainer = styled.nav`
-  position: static;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem;
-`;
-
-const Logo = styled.span`
-  font-size: 2rem;
-  font-weight: 800;
-  color: ${putTheme("fontColor")};
-`;
-
-const IconContainer = styled.button`
-  transition: transform 130ms ${transistion.popup};
-  :hover {
-    transform: scale(1.05);
-  }
-`;
-
-const MenuIcon = ({ handleSideBar }) => {
-  return (
-    <IconContainer onClick={handleSideBar}>
-      <Menu />
-    </IconContainer>
-  );
-};
-
-const ThemeIcon = () => {
-  const theme = useContext(ThemeContext);
-  const dispatch = useDispatch();
-  const onClickHandler = () =>
-    dispatch({ type: "@theme/switch", payload: theme.name === "dark" ? "light" : "dark" });
-
-  return (
-    <IconContainer onClick={onClickHandler}>
-      {theme.name === "dark" ? <Sun /> : <Moon />}
-    </IconContainer>
-  );
-};
+import NavbarMobile from "./NavbarMobile";
 
 const Navbar = () => {
-  const [sideBarOpen, setSideBarOpen] = useState(false);
-  return (
-    <>
-      <NavbarContainer>
-        <div>
-          <Logo>
-            {"<"}Konst{" />"}
-          </Logo>
-        </div>
+  const [viewport, setViewport] = useState(() => (window.innerWidth < 640 ? "small" : "medium"));
 
-        <div className="flex items-center space-x-2">
-          <ThemeIcon />
-          <MenuIcon handleSideBar={() => setSideBarOpen(true)} />
-        </div>
-      </NavbarContainer>
-      {/* TODO Add Side Here */}
-      {sideBarOpen && "SideBar"}
-    </>
-  );
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 640px)");
+    const onChangeHandler = (e) => {
+      if (e.matches) return setViewport("medium");
+      setViewport("small");
+    };
+    media.addEventListener("change", onChangeHandler);
+    return () => {
+      media.removeEventListener("change", onChangeHandler);
+    };
+  }, []);
+
+  return viewport === "small" ? <NavbarMobile /> : <NavbarDesktop />;
 };
 
 export default Navbar;

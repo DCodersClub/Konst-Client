@@ -13,6 +13,7 @@ const LandingSectionStyled = styled.section`
   background-position: center;
   background-size: cover;
   min-height: 100vh;
+  padding: 0 1rem;
 
   ${({ center }) => center && centerStyle};
 `;

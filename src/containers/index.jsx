@@ -8,8 +8,8 @@ import { ViewportProvider } from "../hooks/useViewportWidth";
 import { GlobalStyles } from "../components/styled";
 
 import Home from "./Home";
-import NavbarDesktop from "../components/NavbarDesktop";
 import Signup from "./Signup/Signup";
+import Navbar from "../components/Navbar";
 
 const App = () => {
   const theme = useSelector((state) => state.theme);
@@ -18,7 +18,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <ViewportProvider>
         <GlobalStyles />
-        <NavbarDesktop />
+        <Navbar />
         <Switch>
           <Route path="/signup">
             <Signup />

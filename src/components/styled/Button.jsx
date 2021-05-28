@@ -11,10 +11,26 @@ const StyledButton = styled.button`
   ${ButtonCommon}
   background-color: ${putTheme("primary")};
   color: ${putTheme("background")};
-  margin: 0 auto;
+  transition: transform 100ms ease-in;
 
-  :focus {
-    // To  Be Added
+  ${({ full }) =>
+    full &&
+    css`
+      display: inline-block;
+      width: 100%;
+    `}
+
+  ${({ small }) =>
+    small &&
+    css`
+      padding: 0.25rem;
+      font-size: 0.9rem;
+      border-radius: 0.25rem;
+    `}
+
+  :active {
+    outline: none;
+    transform: scale(0.99);
   }
 `;
 
@@ -89,8 +105,12 @@ const IntractiveButton = ({ children }) => {
   );
 };
 
-export const Button = ({ intractive, children }) => {
+export const Button = ({ intractive, children, small, full }) => {
   if (intractive) return <IntractiveButton>{children}</IntractiveButton>;
 
-  return <StyledButton>{children}</StyledButton>;
+  return (
+    <StyledButton full={full} small={small}>
+      {children}
+    </StyledButton>
+  );
 };

@@ -4,33 +4,8 @@ import styled, { css } from "styled-components";
 
 import { putTheme, transistion } from "./styled";
 import { Button } from "../components/styled/Button";
-import { translucant } from "./styled/Styles";
-
-const NavbarContainer = styled.nav`
-  position: fixed;
-  top: 0;
-  width: 100%;
-
-  ${translucant}
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 1rem;
-`;
-
-const StyledLogo = styled.span`
-  font-weight: 600;
-  font-size: 3rem;
-`;
-
-const Logo = () => {
-  return (
-    <div>
-      <StyledLogo>Konst</StyledLogo>
-    </div>
-  );
-};
+import NavbarContainer from "./NavbarContainer";
+import Logo from "./Logo";
 
 const NavLinkWrapper = styled.li`
   font-size: 1.2rem;

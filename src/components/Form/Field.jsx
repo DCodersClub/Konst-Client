@@ -65,7 +65,7 @@ const Field = ({ label, register, type, placeholder, touch, error }) => {
       <div>
         <LableText htmlFor={name}>
           {label}
-          {!!touch && <Error>{errorMessage}</Error>}
+          {touch ? errorMessage && <Error>{errorMessage}</Error> : null}
         </LableText>
       </div>
       <InputBox
