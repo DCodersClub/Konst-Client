@@ -11,9 +11,13 @@ const SignupFormWrapper = styled.section`
   backdrop-filter: blur(6px);
   background-color: rgba(150, 250, 150, 0.2);
   border-radius: 0.5rem;
+  transition: width 500ms ease-in-out;
   width: 100%;
   @media (min-width: 640px) {
-    width: 45%;
+    width: 80%;
+  }
+  @media (min-width: 1024px) {
+    width: 50%;
   }
 `;
 

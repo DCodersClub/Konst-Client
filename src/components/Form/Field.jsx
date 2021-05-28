@@ -1,10 +1,19 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { AlertCircle } from "react-feather";
 
 import { putTheme } from "../styled";
 
+const fadeOut = keyframes`
+  to {
+    opacity: 1;
+  }
+`;
+
 const FieldContainer = styled.div`
+  /* transition: all 10500ms ease-in; */
+  opacity: 0;
+  animation: ${fadeOut} 750ms ease forwards;
   :hover {
     label {
       color: ${putTheme("white")}50;

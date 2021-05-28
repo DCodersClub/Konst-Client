@@ -10,8 +10,16 @@ const centerStyle = css`
 const LandingSectionStyled = styled.section`
   background-image: url(${({ url }) => url});
   background-color: black;
+  background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  transition: all 500ms linear;
+  @media (min-width: 1024px) {
+    transition: all 500ms linear;
+
+    background-position: right -35% center;
+    background-size: 125vh;
+  }
   min-height: 100vh;
   padding: 0 1rem;
 
