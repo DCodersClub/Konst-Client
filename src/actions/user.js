@@ -40,6 +40,7 @@ export const signup = (data) => async (dispatch, getStore) => {
     }
   } catch (error) {
     userError(dispatch, { name: error.name, message: error.message });
+    throw new Error(error);
   }
 };
 
