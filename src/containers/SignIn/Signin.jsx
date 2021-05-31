@@ -13,6 +13,7 @@ const SignupFormWrapper = styled.section`
   border-radius: 0.5rem;
   transition: width 500ms ease-in-out;
   width: 100%;
+
   @media (min-width: 640px) {
     width: 80%;
   }

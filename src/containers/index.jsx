@@ -38,8 +38,6 @@ const App = () => {
 const Routes = () => {
   return (
     <Switch>
-      {/* <Route exact component={"sj"}></Route> */}
-      {/* Add Responsive Routing */}
       <Route exact path="/signup">
         <Signup />
       </Route>

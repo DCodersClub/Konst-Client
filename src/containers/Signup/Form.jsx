@@ -1,28 +1,26 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 import { Field, GroupField } from "../../components/Form";
-import formConfig from "./form.config";
 import { Button } from "../../components/styled/Button";
+
 import useMediaQuery from "../../hooks/useMediaQuary";
-import { useDispatch } from "react-redux";
 import { signup } from "../../actions/user";
 
+import formConfig from "../common/field.config";
+import EmailField from "../common/EmailField";
+import PasswordField from "../common/PasswordField";
+
 const Form = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, touchedFields },
-  } = useForm({
+  const { handleSubmit, register, formState } = useForm({
     mode: "onBlur",
     defaultValues: { firstName: "", lastName: "", email: "", password: "" },
   });
-
   const medium = useMediaQuery("(min-width: 640px)");
   const dispatch = useDispatch();
-
   const onSubmit = (data) => dispatch(signup(data));
-
+  const { errors, touchedFields } = formState;
   const nameField = (
     <>
       <Field
@@ -46,22 +44,8 @@ const Form = () => {
   return (
     <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
       {medium ? <GroupField>{nameField}</GroupField> : nameField}
-      <Field
-        error={errors}
-        touch={touchedFields.email}
-        name="email"
-        label="Email"
-        type="email"
-        register={register("email", formConfig.email)}
-      />
-      <Field
-        error={errors}
-        touch={touchedFields.password}
-        name="password"
-        label="Password"
-        type="password"
-        register={register("password", formConfig.password)}
-      />
+      <EmailField errors={errors} touchedFields={touchedFields} register={register} />
+      <PasswordField errors={errors} touchedFields={touchedFields} validate register={register} />
       <div className="pt-2">
         <Button full className="mx-auto">
           Submit
