@@ -5,16 +5,10 @@ import { Field, GroupField } from "../../components/Form";
 import formConfig from "./form.config";
 import { Button } from "../../components/styled/Button";
 import useMediaQuery from "../../hooks/useMediaQuary";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signup } from "../../actions/user";
 
 const Form = () => {
-  const data = useSelector((store) => store.userState.user);
-  const loading = useSelector((store) => store.userState.loading);
-  const error = useSelector((store) => store.userState);
-
-  if (error) console.log(error);
-
   const {
     handleSubmit,
     register,
@@ -70,7 +64,7 @@ const Form = () => {
       />
       <div className="pt-2">
         <Button full className="mx-auto">
-          {loading ? "loading" : "Submit"}
+          Submit
         </Button>
       </div>
     </form>

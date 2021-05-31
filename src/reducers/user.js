@@ -31,7 +31,10 @@ export const loadingUser = (dispatch, loading = true) =>
     },
   });
 
-const logoutUser = (dispatch) => dispatch({ type: "@user/logout", state: initialState });
+export const logoutUser = (dispatch) => {
+  dispatch({ type: "@user/logout", state: initialState });
+  localStorage.removeItem("token");
+};
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -43,6 +46,9 @@ const userReducer = (state = initialState, action) => {
     }
     case "@user/loading": {
       return { ...state, ...action.payload };
+    }
+    case "@user/logout": {
+      return action.payload;
     }
   }
   return state;
