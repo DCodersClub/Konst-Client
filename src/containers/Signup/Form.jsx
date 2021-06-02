@@ -12,22 +12,32 @@ import formConfig from "../common/field.config";
 import EmailField from "../common/EmailField";
 import PasswordField from "../common/PasswordField";
 import Spinner from "../../components/Spinner";
+import { useHistory } from "react-router";
+
+const useComponentLogic = () => {
+  const history = useHistory();
+  const medium = useMediaQuery("(min-width: 640px)");
+  const dispatch = useDispatch();
+  return { medium, dispatch, history };
+};
 
 const Form = () => {
+  const { medium, dispatch, history } = useComponentLogic();
+
   const { handleSubmit, register, formState } = useForm({
     mode: "onBlur",
     defaultValues: { firstName: "", lastName: "", email: "", password: "" },
   });
-  const medium = useMediaQuery("(min-width: 640px)");
-  const dispatch = useDispatch();
+
   const onSubmit = async (data) => {
     try {
-      // if causes trouble in network bandwidth, then refactored it
       await dispatch(signup(data));
+      history.push("/");
     } catch (e) {
       formState.isSubmitSuccessful = false;
     }
   };
+
   const { errors, touchedFields, isValid, isSubmitting } = formState;
   const nameField = (
     <>

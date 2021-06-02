@@ -71,12 +71,16 @@ const NavbarRight = () => {
 
   return (
     <div className="ml-auto space-x-2">
-      <Button intractive>
-        <Link to="/signin">Sign In</Link>
-      </Button>
-      <Button intractive>
-        <Link to="/signup">Sign Up</Link>
-      </Button>
+      <Link to="/signin">
+        <Button focusable={false} intractive>
+          Sign In
+        </Button>
+      </Link>
+      <Link to="/signup">
+        <Button focusable={false} intractive>
+          Sign Up
+        </Button>
+      </Link>
     </div>
   );
 };

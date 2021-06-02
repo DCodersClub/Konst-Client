@@ -8,6 +8,7 @@ import { signin } from "../../actions/user";
 
 import EmailField from "../common/EmailField";
 import PasswordField from "../common/PasswordField";
+import Spinner from "../../components/Spinner";
 
 const Form = () => {
   const { handleSubmit, register, formState } = useForm({
@@ -28,7 +29,7 @@ const Form = () => {
   const onSubmit = (data) => {
     dispatch(signin(data));
   };
-  const { errors, touchedFields } = formState;
+  const { errors, touchedFields, isValid, isSubmitting } = formState;
 
   return (
     <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
@@ -36,7 +37,7 @@ const Form = () => {
       <PasswordField errors={errors} touchedFields={touchedFields} register={register} />
       <div className="pt-2">
         <Button full className="mx-auto">
-          Submit
+          {isValid && isSubmitting ? <Spinner size={24} dark /> : "Submit"}
         </Button>
       </div>
     </form>

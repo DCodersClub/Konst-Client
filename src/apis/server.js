@@ -9,15 +9,34 @@ export const server = axios.create({
   },
 });
 
-export const signup = async (userData) => {
+const responseHandler = (response) => {
+  const { status, data } = response;
+  if (status >= 200 && status < 300) return { ok: true, data };
+};
+const responseErrorHandler = (response) => {
+  const error = response.data;
+  return { ok: false, error };
+};
+
+export const signin = async ({ email, password }) => {
+  if (!email || !password)
+    throw new Error(`Expected email and password got, email: ${email} ${password}`);
   try {
-    if (!userData) throw new Error(`Expected Data To Be Send, Got ${userData}`);
-    const response = await server.post("/signup", userData);
-    const { status, data } = response;
-    if (status >= 200 && status < 300) return { ok: true, data };
+    const credential = { email, password };
+    const response = await server.post("/signin", credential);
+    return responseHandler(response);
   } catch (e) {
-    const error = e.response.data;
-    return { ok: false, error };
+    responseErrorHandler(e.response);
+  }
+};
+
+export const signup = async (userData) => {
+  if (!userData) throw new Error(`Expected Data To Be Send, Got ${userData}`);
+  try {
+    const response = await server.post("/signup", userData);
+    return responseHandler(response);
+  } catch (e) {
+    responseErrorHandler(e.response);
   }
 };
 
@@ -34,10 +53,9 @@ export const fetchUserData = async (id) => {
     };
     const url = `user/${id}`;
     const response = await server.get(url, requestConfig);
-    const { status, data } = response;
-    if (status >= 200 && status < 300) return { ok: true, data };
+    const result = responseHandler(response);
+    return result;
   } catch (e) {
-    const error = e.response.data;
-    return { ok: false, error };
+    responseErrorHandler(e.response);
   }
 };

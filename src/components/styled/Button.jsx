@@ -92,10 +92,10 @@ const useComponentMouseIntraction = () => {
   return { ref, clipConfig };
 };
 
-const IntractiveButton = ({ children }) => {
+const IntractiveButton = ({ children, tabIndex }) => {
   const { ref, clipConfig } = useComponentMouseIntraction();
   return (
-    <IntraButtonWrapper ref={ref}>
+    <IntraButtonWrapper tabIndex={tabIndex} ref={ref}>
       <span
         className="clipped"
         style={{ clipPath: `circle(${clipConfig.size}% at ${clipConfig.x}% ${clipConfig.y}%)` }}
@@ -105,11 +105,12 @@ const IntractiveButton = ({ children }) => {
   );
 };
 
-export const Button = ({ intractive, children, small, full }) => {
-  if (intractive) return <IntractiveButton>{children}</IntractiveButton>;
+export const Button = ({ intractive, children, small, full, focusable }) => {
+  const tabIndex = focusable === false ? -1 : undefined;
+  if (intractive) return <IntractiveButton tabIndex={tabIndex}>{children}</IntractiveButton>;
 
   return (
-    <StyledButton full={full} small={small}>
+    <StyledButton tabIndex={tabIndex} full={full} small={small}>
       {children}
     </StyledButton>
   );

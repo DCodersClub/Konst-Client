@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducer";
 import themeReducer from "./themeReducer";
-import userReducer from "./user";
+import userReducer from "./userReducer";
 
 const reducers = combineReducers({
   theme: themeReducer,

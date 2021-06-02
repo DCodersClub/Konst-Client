@@ -1,5 +1,6 @@
-import { server, fetchUserData } from "../apis/server";
-import { loadingUser, saveUser, userError } from "../reducers/user";
+import { fetchUserData, signup as signupUser, signin as signinUser } from "../apis/server";
+import { auth } from "../reducers/authReducer";
+import { user } from "../reducers/userReducer";
 
 /**
  * FetchUserData From Server, Expect UserId as Input,
@@ -12,60 +13,62 @@ export const loadUserData = (id) => async (dispatch) => {
     id = localStorage.getItem("id");
     if (!id) return dispatch({ type: "signout" });
   }
-  const userid = id;
 
+  const userid = id;
   if (typeof userid !== "string") throw new Error(`Expected id: String Got ${typeof userid}`);
 
   try {
-    loadingUser(dispatch, true);
+    dispatch(user.fetchingData());
+
     const result = await fetchUserData(userid);
     const { ok } = result;
     if (!ok) throw result.error;
-    saveUser(dispatch, result.data);
-    dispatch({ type: "signin" });
+
+    dispatch(user.saveData(result.data));
+    dispatch(auth.signedIn());
   } catch (e) {
-    userError(dispatch, e);
+    dispatch(user.saveData(undefined, e));
   }
 };
 
 export const signup = (data) => async (dispatch, getStore) => {
   const { userState } = getStore();
-  if (userState.user) return userError(dispatch, { message: "Already Signed In" });
+  if (userState?.user) return; // already signup
 
-  loadingUser(dispatch, true);
   try {
-    const response = await server.post("/signup", data);
-    if (response.status >= 200 && response.status < 300) {
-      const { token, user } = response.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("id", user.id);
-      saveUser(dispatch, user);
-    } else {
-      userError(dispatch, response.data);
-    }
+    dispatch(user.fetchingData());
+
+    const result = await signupUser(data);
+    if (!result.ok) throw result.error;
+
+    const { token, user: userData } = result.data;
+    localStorage.setItem("token", token);
+    localStorage.setItem("id", userData.id);
+
+    dispatch(user.saveData(userData));
+    dispatch(auth.signedIn());
   } catch (error) {
-    userError(dispatch, { name: error.name, message: error.message });
-    throw new Error(error);
+    dispatch(user.saveData(undefined, error));
   }
 };
 
 export const signin = (data) => async (dispatch, getStore) => {
   const { userState } = getStore();
-  if (userState.user) return userError(dispatch, { message: "Already Signed In" });
+  if (userState.user) return; // already signed in
 
-  loadingUser(dispatch, true);
   try {
-    const response = await server.post("/signin", data);
-    if (response.status >= 200 && response.status < 300) {
-      const { token, user } = response.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("id", user.id);
-      saveUser(dispatch, user);
-      dispatch({ type: "signin" });
-    } else {
-      userError(dispatch, response.data);
-    }
+    dispatch(user.fetchingData());
+
+    const result = await signinUser(data);
+    if (!result.ok) throw result.error;
+
+    const { token, user: userData } = result.data;
+    localStorage.setItem("token", token);
+    localStorage.setItem("id", userData.id);
+
+    dispatch(user.saveData(userData));
+    dispatch(auth.signedIn());
   } catch (error) {
-    userError(dispatch, { name: error.name, message: error.message });
+    dispatch(user.saveData(undefined, error));
   }
 };
