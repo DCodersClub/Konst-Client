@@ -9,6 +9,34 @@ export const server = axios.create({
   },
 });
 
-export const signup = (data) => {
-  return server.post("/signup", data);
+export const signup = async (userData) => {
+  try {
+    if (!userData) throw new Error(`Expected Data To Be Send, Got ${userData}`);
+    const response = await server.post("/signup", userData);
+    const { ok, data } = response;
+    if (ok) return { data };
+  } catch (e) {
+    return { error: e };
+  }
+};
+
+export const fetchUserData = async (id) => {
+  if (!id) throw new Error(`Exprected ID to be string, got ${id}`);
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("Login Token Not Found");
+
+  try {
+    const requestConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const url = `user/${id}`;
+    const response = await server.get(url, requestConfig);
+    const { status, data } = response;
+    if (status >= 200 && status < 300) return { ok: true, data };
+  } catch (e) {
+    const error = e.response.data;
+    return { ok: false, error };
+  }
 };

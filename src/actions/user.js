@@ -1,4 +1,4 @@
-import { server } from "../apis/server";
+import { server, fetchUserData } from "../apis/server";
 import { loadingUser, saveUser, userError } from "../reducers/user";
 
 export const loadUserData = () => async (dispatch) => {
@@ -7,17 +7,11 @@ export const loadUserData = () => async (dispatch) => {
 
   try {
     loadingUser(dispatch, true);
-
-    const response = await server.get(`user/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    if (response.status >= 200 && response.status < 300) {
-      const user = response.data;
-      saveUser(dispatch, user);
-      dispatch({ type: "signin" });
-    }
+    const result = await fetchUserData(id);
+    const { ok } = result;
+    if (!ok) throw result.error;
+    saveUser(dispatch, result.data);
+    dispatch({ type: "signin" });
   } catch (e) {
     userError(dispatch, e);
   }
