@@ -1,13 +1,24 @@
 import { server, fetchUserData } from "../apis/server";
 import { loadingUser, saveUser, userError } from "../reducers/user";
 
-export const loadUserData = () => async (dispatch) => {
-  const id = localStorage.getItem("id");
-  if (!id) return dispatch({ type: "signout" });
+/**
+ * FetchUserData From Server, Expect UserId as Input,
+ * if not provided, it loooks in localstorage for key = id
+ * @param {String} id User Id
+ * @returns {Undefined}
+ */
+export const loadUserData = (id) => async (dispatch) => {
+  if (!id) {
+    id = localStorage.getItem("id");
+    if (!id) return dispatch({ type: "signout" });
+  }
+  const userid = id;
+
+  if (typeof userid !== "string") throw new Error(`Expected id: String Got ${typeof userid}`);
 
   try {
     loadingUser(dispatch, true);
-    const result = await fetchUserData(id);
+    const result = await fetchUserData(userid);
     const { ok } = result;
     if (!ok) throw result.error;
     saveUser(dispatch, result.data);

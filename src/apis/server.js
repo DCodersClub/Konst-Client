@@ -13,10 +13,11 @@ export const signup = async (userData) => {
   try {
     if (!userData) throw new Error(`Expected Data To Be Send, Got ${userData}`);
     const response = await server.post("/signup", userData);
-    const { ok, data } = response;
-    if (ok) return { data };
+    const { status, data } = response;
+    if (status >= 200 && status < 300) return { ok: true, data };
   } catch (e) {
-    return { error: e };
+    const error = e.response.data;
+    return { ok: false, error };
   }
 };
 
