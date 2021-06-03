@@ -23,5 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${putTheme("background") || "#black"};
     transition: all 100ms linear;
     font-family: ${({ theme }) => theme.font.content};
+    width: 100vw;
+    overflow: hidden;
   }
 `;

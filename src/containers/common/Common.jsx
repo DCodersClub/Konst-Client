@@ -14,16 +14,16 @@ const LandingSectionStyled = styled.section`
   background-position: center;
   background-size: cover;
   transition: all 500ms linear;
+
   @media (min-width: 1024px) {
     transition: all 500ms linear;
 
     background-position: right -35% center;
     background-size: 125vh;
+    ${({ center }) => center && centerStyle};
   }
   min-height: 100vh;
   padding: 0 1rem;
-
-  ${({ center }) => center && centerStyle};
 `;
 
 export const LandingSection = (props) => {

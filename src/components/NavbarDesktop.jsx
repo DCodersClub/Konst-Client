@@ -7,6 +7,7 @@ import { Button } from "../components/styled/Button";
 import NavbarContainer from "./NavbarContainer";
 import Logo from "./Logo";
 import { useSelector } from "react-redux";
+import Profile from "./ProfileButton";
 
 const NavLinkWrapper = styled.li`
   font-size: 1.2rem;
@@ -47,14 +48,14 @@ const NavLinkWrapper = styled.li`
     `}
 `;
 
-const NavLink = ({ to, children }) => {
+const NavLink = ({ to, children, as }) => {
   const { pathname } = useLocation();
 
   if (!to) to = "/";
 
   const isActive = pathname === to;
   return (
-    <NavLinkWrapper active={isActive}>
+    <NavLinkWrapper as={as} active={isActive}>
       <Link to={to}>{children}</Link>
     </NavLinkWrapper>
   );
@@ -64,9 +65,9 @@ const NavbarRight = () => {
   const user = useSelector((state) => state.userState.user);
   if (user)
     return (
-      <div className="ml-auto space-x-2">
-        <h2>{`${user.name.first} ${user.name.last}`}</h2>
-      </div>
+      <Profile>
+        {user.name.first} {user.name.last}
+      </Profile>
     );
 
   return (

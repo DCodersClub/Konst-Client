@@ -6,7 +6,7 @@ import { user } from "../reducers/userReducer";
  * FetchUserData From Server, Expect UserId as Input,
  * if not provided, it loooks in localstorage for key = id
  * @param {String} id User Id
- * @returns {Undefined}
+ * @returns {undefined}
  */
 export const loadUserData = (id) => async (dispatch) => {
   if (!id) {
