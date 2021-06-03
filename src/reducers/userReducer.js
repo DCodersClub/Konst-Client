@@ -7,6 +7,7 @@ const initialState = {
 const type = {
   saveUser: "@user/SAVE_USER_DATA",
   fetchUser: "@user/FETCH_USER_DATA",
+  removeUser: "@user/REMOVE_USER_DATA",
 };
 
 const immutePayload = (state, { payload }) => {
@@ -18,6 +19,9 @@ const userReducer = (state = initialState, action) => {
     case type.saveUser:
     case type.fetchUser: {
       return immutePayload(state, action);
+    }
+    case type.removeUser: {
+      return initialState;
     }
   }
   return state;
@@ -41,6 +45,10 @@ export const user = {
 
   fetchingData() {
     return { type: type.fetchUser, payload: { user: null, error: null, loading: true } };
+  },
+
+  removeUser() {
+    return { type: type.removeUser };
   },
 };
 

@@ -72,3 +72,16 @@ export const signin = (data) => async (dispatch, getStore) => {
     dispatch(user.saveData(undefined, error));
   }
 };
+
+export const signout = (callback) => (dispatch) => {
+  try {
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+    dispatch(user.removeUser());
+    dispatch(auth.signedOut());
+    callback();
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log(e);
+  }
+};

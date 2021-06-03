@@ -1,13 +1,13 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import { putTheme, transistion } from "./styled";
 import { Button } from "../components/styled/Button";
 import NavbarContainer from "./NavbarContainer";
 import Logo from "./Logo";
-import { useSelector } from "react-redux";
-import Profile from "./ProfileButton";
+import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../actions/user";
 
 const NavLinkWrapper = styled.li`
   font-size: 1.2rem;
@@ -63,11 +63,24 @@ const NavLink = ({ to, children, as }) => {
 
 const NavbarRight = () => {
   const user = useSelector((state) => state.userState.user);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const onClickHandler = () => {
+    // console.log("hel");
+    return dispatch(signout(() => history.push("/")));
+  };
   if (user)
     return (
-      <Profile>
-        {user.name.first} {user.name.last}
-      </Profile>
+      <div className="ml-auto space-x-3">
+        <Link to="/profile">
+          <Button focusable={false} intractive>
+            {user.name.first} {user.name.last}
+          </Button>
+        </Link>
+        <Button intractive onClick={onClickHandler}>
+          Sign Out
+        </Button>
+      </div>
     );
 
   return (

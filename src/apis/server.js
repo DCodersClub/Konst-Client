@@ -40,6 +40,16 @@ export const signup = async (userData) => {
   }
 };
 
+export const signout = async () => {
+  // if (!userData) throw new Error(`Expected Data To Be Send, Got ${userData}`);
+  try {
+    const response = await server.get("/signout");
+    return responseHandler(response);
+  } catch (e) {
+    responseErrorHandler(e.response);
+  }
+};
+
 export const fetchUserData = async (id) => {
   if (!id) throw new Error(`Exprected ID to be string, got ${id}`);
   const token = localStorage.getItem("token");
