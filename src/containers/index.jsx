@@ -38,16 +38,9 @@ const App = () => {
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/login">
-        <Signup />
-      </Route>
-      <Route exact path="/register">
-        <Signin />
-      </Route>
-      {/* Add Responsive Routing */}
-      <Route exact path="/">
-        <Home />
-      </Route>
+      <Route exact path="/register" component={Signup} />
+      <Route exact path="/login" component={Signin} />
+      <Route exact path="/" component={Home} />
       <Route>
         <div className="h-screen flex items-center justify-center">
           <h1 className="text-white text-9xl">404</h1>
