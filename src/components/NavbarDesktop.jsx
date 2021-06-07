@@ -1,61 +1,99 @@
 import React from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
-import { putTheme, transistion } from "./styled";
+import { opacity, putTheme, transistion } from "./styled";
 import { Button } from "../components/styled/Button";
 import NavbarContainer from "./NavbarContainer";
 import Logo from "./Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/user";
 
+const sharedStyle = {
+  active: css`
+    border-color: ${putTheme("primary")};
+    background-color: ${putTheme("primary")}${opacity(0.2)};
+    box-shadow: 0 0 0.75 0 ${putTheme("primary")};
+    a {
+      outline: none;
+      color: ${putTheme("secondary")};
+    }
+    :hover {
+      a {
+        ::after {
+          display: none;
+        }
+      }
+    }
+  `,
+};
+
 const NavLinkWrapper = styled.li`
-  font-size: 1.2rem;
-  color: ${putTheme("white") || "white"};
-  transition: transform 170ms ${transistion.popup};
-  position: relative;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: ${putTheme("secondary") || "white"}${opacity(0.8)};
+  transition: color 170ms ${transistion.popup};
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  padding: 0.45rem;
+  & + & {
+    margin-left: 0.5rem;
+  }
 
-  :after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
-    height: 2px;
-    width: 100%;
-    transform-origin: left;
-    transform: scaleX(0);
-    border-radius: 5px;
-
-    background-color: ${putTheme("primary")};
-
-    transition: transform 350ms ease;
+  a {
+    display: block;
+    position: relative;
+    ::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      height: 2px;
+      width: 100%;
+      transform-origin: right;
+      transform: scale(0);
+      transition: transform 1200ms ${transistion.popup};
+      background-color: ${putTheme("primary")};
+    }
   }
 
   :hover {
-    ::after {
-      transform: scaleX(1);
+    color: ${putTheme("secondary") || "white"};
+    a {
+      ::after {
+        transform-origin: left;
+        transition: transform 1200ms ${transistion.popup};
+        transform: scale(1);
+      }
     }
+  }
+
+  :focus-within {
+    ${sharedStyle.active}
   }
 
   ${({ active }) =>
     active &&
     css`
-      ::after {
-        transform: scale(1);
-      }
-      color: ${putTheme("primary")};
+      color: ${putTheme("secondary") || "white"};
+      text-shadow: 0 0 0.75rem ${putTheme("secondary") || "white"};
+    `}
+  ${({ glow }) =>
+    glow &&
+    css`
+      color: ${putTheme("primary") || "green"};
+      text-shadow: 0 0 0.75rem ${putTheme("primary") || "white"};
     `}
 `;
 
-const NavLink = ({ to, children, as }) => {
+const NavLink = ({ to, children, as, glow }) => {
   const { pathname } = useLocation();
 
   if (!to) to = "/";
 
   const isActive = pathname === to;
   return (
-    <NavLinkWrapper as={as} active={isActive}>
+    <NavLinkWrapper glow={glow} as={as} active={isActive}>
       <Link to={to}>{children}</Link>
     </NavLinkWrapper>
   );
@@ -66,7 +104,6 @@ const NavbarRight = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const onClickHandler = () => {
-    // console.log("hel");
     return dispatch(signout(() => history.push("/")));
   };
   if (user)
@@ -84,18 +121,14 @@ const NavbarRight = () => {
     );
 
   return (
-    <div className="ml-auto space-x-2">
-      <Link to="/signin">
-        <Button focusable={false} intractive>
-          Sign In
-        </Button>
-      </Link>
-      <Link to="/signup">
-        <Button focusable={false} intractive>
-          Sign Up
-        </Button>
-      </Link>
-    </div>
+    <ul className="ml-auto flex space-x-2 list-none">
+      <NavLink glow to="/login">
+        LOGIN
+      </NavLink>
+      <NavLink glow to="/register">
+        REGISTER
+      </NavLink>
+    </ul>
   );
 };
 
@@ -103,7 +136,7 @@ const NavbarDesktop = () => {
   return (
     <NavbarContainer>
       <Logo />
-      <ul className="flex space-x-4 ml-10">
+      <ul className="flex ml-10">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/contest">Contest</NavLink>
         <NavLink to="/archive">Archive</NavLink>

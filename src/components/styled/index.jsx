@@ -4,6 +4,15 @@ export const transistion = {
   popup: () => "cubic-bezier(0.075, 0.82, 0.165, 1)",
 };
 
+export const opacity =
+  (value = 0) =>
+  () => {
+    if (value > 1) value = 1;
+    if (value < 0) value = 0;
+    let num = value * 255;
+    return `${num <= 16 ? "0" : ""}${Math.round(value * 255).toString(16)}`;
+  };
+
 export const putTheme = (field) => {
   return ({ theme }) => {
     // eslint-disable-next-line no-console
@@ -19,10 +28,10 @@ export const GlobalStyles = createGlobalStyle`
   }
   body {
     min-height: 100vh;
-    color: ${putTheme("white") || "#white"};
-    background-color: ${putTheme("background") || "#black"};
+    color: ${putTheme("secondary") || "#f2f2f2"};
+    background-color: ${putTheme("dark") || "#000000"};
     transition: all 100ms linear;
-    font-family: ${({ theme }) => theme.font.content};
+    font-family: ${({ theme }) => theme.font.poppins};
     width: 100vw;
     overflow: hidden;
   }

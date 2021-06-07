@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 
 import { ViewportProvider } from "../hooks/useViewportWidth";
 
+import { theme } from "../theme";
 import { GlobalStyles } from "../components/styled";
 
 import Home from "./Home";
@@ -14,8 +15,7 @@ import Navbar from "../components/Navbar";
 import { loadUserData } from "../actions/user";
 
 const App = () => {
-  const theme = useSelector((state) => state.theme);
-  // const signedIn = useSelector((store) => store.signedIn);
+  const oldTheme = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadUserData());
@@ -25,11 +25,11 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{ ...oldTheme, ...theme }}>
       <ViewportProvider>
         <GlobalStyles />
-        <Routes />
         <Navbar />
+        <Routes />
       </ViewportProvider>
     </ThemeProvider>
   );
@@ -38,10 +38,10 @@ const App = () => {
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/signup">
+      <Route exact path="/login">
         <Signup />
       </Route>
-      <Route exact path="/signin">
+      <Route exact path="/register">
         <Signin />
       </Route>
       {/* Add Responsive Routing */}

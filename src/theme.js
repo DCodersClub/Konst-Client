@@ -1,6 +1,27 @@
 const font = {
+  poppins: "Poppins, sans-serif",
   content: "Karla, sans-serif",
   heading: "Karla, sans-serif",
+};
+
+const color = {
+  green: "#5ac754",
+  dullWhite: "#f2f2f2",
+  black: "#000000",
+};
+
+const viewport = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  xxl: 1366,
+};
+
+const theme = {
+  primary: color.green,
+  secondary: color.dullWhite,
+  dark: color.black,
 };
 
 const colors = {
@@ -14,9 +35,9 @@ const colors = {
 const light = {
   name: "light",
   font,
-  primary: colors.greenLight,
+  primary: "blue",
   background: colors.black,
-  white: colors.white,
+  white: color.dullWhite,
 };
 
-export { light };
+export { light, theme, viewport };

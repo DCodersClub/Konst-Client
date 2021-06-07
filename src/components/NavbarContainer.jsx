@@ -5,13 +5,9 @@ export default styled.nav`
   position: fixed;
   top: 0;
   width: 100%;
-
-  ${translucant}
-
   display: flex;
   align-items: center;
-
-  padding: 0 1rem;
-
+  padding: 0.5rem 1rem;
   z-index: 100;
+  ${translucant}
 `;

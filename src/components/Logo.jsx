@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 const StyledLogo = styled.span`
   font-weight: 600;
-  font-size: 3rem;
+  font-size: 2.5rem;
 
   ${({ small }) =>
     small &&

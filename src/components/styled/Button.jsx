@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
-import { putTheme } from ".";
+import { putTheme, transistion } from ".";
 
 const ButtonCommon = css`
   padding: 0.5rem;
@@ -50,10 +50,12 @@ const IntraButtonWrapper = styled.button`
 
     transition: clip-path 300ms ease-in 50ms;
     background-color: ${putTheme("primary")};
+    box-shadow: none;
   }
 
   :hover {
     color: ${putTheme("background")};
+    transition: box-shadow 100ms ${transistion.popup} 250ms;
   }
 `;
 
