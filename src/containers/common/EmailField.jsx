@@ -9,6 +9,7 @@ const EmailField = ({ errors, touchedFields, register }) => {
       touch={touchedFields.email}
       name="email"
       label="Email"
+      placeholder="john@example.com"
       type="email"
       register={register("email", formConfig.email)}
     />

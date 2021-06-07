@@ -8,6 +8,7 @@ const color = {
   green: "#5ac754",
   dullWhite: "#f2f2f2",
   black: "#000000",
+  red: "#e35e5e",
 };
 
 const viewport = {
@@ -22,6 +23,7 @@ const theme = {
   primary: color.green,
   secondary: color.dullWhite,
   dark: color.black,
+  danger: color.red,
 };
 
 const colors = {

@@ -1,8 +1,7 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-import { AlertCircle } from "react-feather";
+import styled, { css, keyframes } from "styled-components";
 
-import { putTheme } from "../styled";
+import { opacity, putTheme } from "../styled";
 
 const fadeOut = keyframes`
   to {
@@ -10,56 +9,67 @@ const fadeOut = keyframes`
   }
 `;
 
+const errorStyle = ({ error }) =>
+  error &&
+  css`
+    color: ${putTheme("danger")};
+  `;
 const FieldContainer = styled.div`
   /* transition: all 10500ms ease-in; */
   opacity: 0;
+  margin: 1rem 0;
   animation: ${fadeOut} 750ms ease forwards;
   :hover {
     label {
-      color: ${putTheme("white")}50;
+      color: ${putTheme("secondary")}${opacity(1)};
+      ${errorStyle}
     }
   }
 `;
 
 const LableText = styled.label`
   display: block;
-  color: ${putTheme("white")};
-  margin-bottom: 0.25rem;
+  color: ${putTheme("secondary")}${opacity(0.75)};
+  font-size: 0.85em;
+  font-weight: 5 00;
+  line-height: 1.5;
+  ${errorStyle}
 `;
 
 const InputBox = styled.input`
   display: block;
-  padding: 0.3rem;
   width: 100%;
-
-  font-size: 1.125rem;
-
-  background-color: rgba(255, 255, 255, 0.2);
+  background: none;
+  border-bottom: 1px solid ${putTheme("secondary")}${opacity(1)};
+  font-size: 0.95rem;
+  padding-bottom: 1px;
+  font-family: ${({ theme }) => theme.content};
+  font-weight: 600;
 
   ::placeholder {
-    color: ${putTheme("white")}70;
+    color: ${putTheme("secondary")}${opacity(0.45)};
+    font-weight: 400;
   }
-
   :hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    border-color: ${putTheme("secondary")}${opacity(1)};
   }
   :focus {
-    background-color: rgba(255, 255, 255, 0.35);
+    outline: none;
+    border-color: ${putTheme("primary")}${opacity(0.75)};
+    /* background-color: rgba(255, 255, 255, 0.35); */
   }
 `;
 
 const ErrorMessage = styled.span`
-  color: ${putTheme("white")};
+  color: ${putTheme("danger")};
   font-size: 85%;
-  font-weight: 600;
-
+  font-weight: 500;
   margin-left: 0.5rem;
 `;
 
 const Error = ({ children }) => {
   return (
     <ErrorMessage className="space-x-1">
-      <AlertCircle className="inline" size="14" />
       <span>{children}</span>
     </ErrorMessage>
   );
@@ -72,18 +82,19 @@ const Field = ({ label, register, type, placeholder, touch, error }) => {
   return (
     <FieldContainer aria-errormessage={errorMessage}>
       <div>
-        <LableText htmlFor={name}>
-          {label}
-          {touch ? errorMessage && <Error>{errorMessage}</Error> : null}
+        <LableText error={touch && errorMessage} htmlFor={name}>
+          <span>{label}</span>
+          <span>{touch ? errorMessage && <Error>{errorMessage}</Error> : null}</span>
         </LableText>
       </div>
       <InputBox
+        error={touch && errorMessage}
         type={type}
         placeholder={placeholder}
         id={name}
-        {...register}
         aria-autocomplete="true"
         aria-required="true"
+        {...register}
       />
     </FieldContainer>
   );

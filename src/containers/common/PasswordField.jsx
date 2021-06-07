@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Field } from "../../components/Form";
 import formConfig from "./field.config";
 
-const PasswordField = ({ errors, touchedFields, register, validate }) => {
+const PasswordField = ({ errors, touchedFields, register, validate, label }) => {
   const config = useMemo(() => {
     if (validate) return formConfig.password;
     formConfig.password.pattern = undefined;
@@ -14,7 +14,7 @@ const PasswordField = ({ errors, touchedFields, register, validate }) => {
       error={errors}
       touch={touchedFields.password}
       name="password"
-      label="Password"
+      label={label ? label : "Password"}
       type="password"
       register={register("password", config)}
     />

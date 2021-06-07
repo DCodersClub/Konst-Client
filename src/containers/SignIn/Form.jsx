@@ -32,11 +32,16 @@ const Form = () => {
   const { errors, touchedFields, isValid, isSubmitting } = formState;
 
   return (
-    <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
-      <EmailField errors={errors} touchedFields={touchedFields} register={register} />
-      <PasswordField errors={errors} touchedFields={touchedFields} register={register} />
+    <form
+      className="space-y-2 flex flex-col justify-between h-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div>
+        <EmailField errors={errors} touchedFields={touchedFields} register={register} />
+        <PasswordField errors={errors} touchedFields={touchedFields} register={register} />
+      </div>
       <div className="pt-2">
-        <Button full className="mx-auto">
+        <Button varient="outlined" full className="mx-auto">
           {isValid && isSubmitting ? <Spinner size={24} dark /> : "Submit"}
         </Button>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
-import { putTheme, transistion } from ".";
+import { opacity, putTheme, transistion } from ".";
 
 const ButtonCommon = css`
   padding: 0.5rem;
@@ -31,6 +31,17 @@ const StyledButton = styled.button`
   :active {
     outline: none;
     transform: scale(0.99);
+  }
+`;
+
+const OutlinedButton = styled(StyledButton)`
+  background: none;
+  border: 0.055rem solid ${putTheme("primary")};
+  border-radius: 2rem;
+  color: ${putTheme("secondary")};
+
+  :hover {
+    background-color: ${putTheme("primary")}${opacity(0.025)};
   }
 `;
 
@@ -108,7 +119,9 @@ const IntractiveButton = ({ children, tabIndex, onClick }) => {
   );
 };
 
-export const Button = ({ intractive, children, small, full, focusable, onClick }) => {
+export const Button = ({ intractive, children, small, full, focusable, onClick, varient }) => {
+  let Output = StyledButton;
+  if (varient === "outlined") Output = OutlinedButton;
   const tabIndex = focusable === false ? -1 : undefined;
   if (intractive)
     return (
@@ -118,8 +131,8 @@ export const Button = ({ intractive, children, small, full, focusable, onClick }
     );
 
   return (
-    <StyledButton onClick={onClick} tabIndex={tabIndex} full={full} small={small}>
+    <Output onClick={onClick} tabIndex={tabIndex} full={full} small={small}>
       {children}
-    </StyledButton>
+    </Output>
   );
 };

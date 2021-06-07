@@ -46,6 +46,7 @@ const Form = () => {
         touch={touchedFields.firstName}
         label="First Name"
         type="text"
+        placeholder="John"
         register={register("firstName", formConfig.firstName)}
       />
       <Field
@@ -54,19 +55,33 @@ const Form = () => {
         name="lastName"
         label="Last Name"
         type="text"
+        placeholder="Smith"
         register={register("lastName", formConfig.lastName)}
       />
     </>
   );
 
   return (
-    <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
-      {medium ? <GroupField>{nameField}</GroupField> : nameField}
-      <EmailField errors={errors} touchedFields={touchedFields} register={register} />
-      <PasswordField errors={errors} touchedFields={touchedFields} register={register} validate />
+    <form
+      className="space-y-2 flex flex-col justify-between h-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div>
+        {medium ? <GroupField>{nameField}</GroupField> : nameField}
+        <EmailField errors={errors} touchedFields={touchedFields} register={register} />
+        <PasswordField errors={errors} touchedFields={touchedFields} register={register} validate />
+        <PasswordField
+          errors={errors}
+          touchedFields={touchedFields}
+          label="Confirm Password"
+          register={register}
+          validate
+        />
+      </div>
+
       <div className="pt-2">
-        <Button full className="mx-auto">
-          {isValid && isSubmitting ? <Spinner size={24} dark /> : "Submit"}
+        <Button varient="outlined" full className="mx-auto">
+          {isValid && isSubmitting ? <Spinner size={24} dark /> : "Sign Up For Now"}
         </Button>
       </div>
     </form>
