@@ -1,6 +1,6 @@
 const font = {
   poppins: "Poppins, sans-serif",
-  content: "Karla, sans-serif",
+  content: "Montserrat, sans-serif",
   heading: "Karla, sans-serif",
 };
 

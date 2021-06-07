@@ -1,36 +1,28 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import backgroundDesktop from "../../assets/background-desktop.jpg";
+import { media, putTheme } from "../../components/styled";
 
-const centerStyle = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const LandingSectionStyled = styled.section`
+export const LandingSectionStyled = styled.section`
+  background-color: ${putTheme("dark")};
   background-image: url(${({ url }) => url});
-  background-color: black;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center right;
   background-size: cover;
   transition: all 500ms linear;
-
-  @media (min-width: 1024px) {
-    transition: all 500ms linear;
-
-    background-position: right -35% center;
-    background-size: 125vh;
-    ${({ center }) => center && centerStyle};
-  }
   min-height: 100vh;
   padding: 0 1rem;
+  ${media.md(css`
+    transition: all 500ms linear;
+  `)}
+  ${({ styles }) => styles && styles}
 `;
 
-export const LandingSection = (props) => {
+export const LandingSection = (props, styles) => {
   let { children, center, imageUrl } = props;
-  if (!imageUrl) imageUrl = "https://purry03.github.io/Konst-Frontend/img/banner.jpg";
+  if (!imageUrl) imageUrl = backgroundDesktop;
   return (
-    <LandingSectionStyled url={imageUrl} center={center}>
+    <LandingSectionStyled styles={styles} url={imageUrl} center={center}>
       {children}
     </LandingSectionStyled>
   );

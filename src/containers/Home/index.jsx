@@ -1,48 +1,63 @@
 import React from "react";
 import styled from "styled-components";
-import { putTheme } from "../../components/styled";
-import { LandingSection } from "../common/Common";
+import { opacity, putTheme } from "../../components/styled";
+import { LandingSectionStyled } from "../common/Common";
+import backgroundDesktop from "../../assets/background-desktop.jpg";
 
-const Wrapper = styled.div`
-  font-size: 1.2rem;
-  padding-top: 15vh;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  @media (min-width: 640px) {
-    text-align: unset;
-  }
-  @media (min-width: 1024px) {
-    padding: 2rem 0;
-    width: 90%;
-    margin-bottom: 0;
-  }
+const LandingSection = styled(LandingSectionStyled)`
+  display: flex;
+  align-items: center;
+  background-image: url(${() => backgroundDesktop});
 `;
 
-const Subtitle = styled.div`
-  --angle: 45deg;
-  background-image: linear-gradient(var(--angle), ${putTheme("primary")}, #43d1ae);
-  color: ${putTheme("background")};
-  /* line-height: 1.3; */
-  padding: 0.5rem;
-  @media (min-width: 1024px) {
+const Wrapper = styled.div`
+  color: ${putTheme("secondary")}${opacity(0.5)};
+  padding: 1rem 2rem;
+  .konst-year {
     display: inline-block;
-    margin-top: 0;
+    font-size: 1.1em;
+    margin-bottom: 2rem;
+  }
+  h2 {
+    div {
+      font-size: 2rem;
+      font-weight: 500;
+      color: ${putTheme("secondary")};
+      text-transform: capitalize;
+      &.title {
+        line-height: 75%;
+        font-size: 3.25rem;
+        font-weight: 700;
+        color: ${putTheme("primary")};
+      }
+    }
+  }
+  p {
+    color: ${putTheme("secondary")}${opacity(0.85)};
+    font-family: ${({ theme }) => theme.font.content};
+    letter-spacing: 1px;
+    line-height: 1.7;
+    margin-top: 2rem;
+    max-width: 50ch;
+    font-size: 1.25em;
   }
 `;
 
 const Home = () => {
   return (
-    <div>
-      <LandingSection center>
-        <Wrapper className="text-xl md:text-xl min-h-full">
-          <span className="mb-2 inline-block">Konst {new Date().getFullYear()}</span>
-          <h2 className="text-4xl md:text-6xl font-bold md:font-extrabold tracking-tighter space-y-6 md:space-y-2">
-            <div>Can you beat your friends in the</div>
-            <Subtitle className="mt-8 font-extrabold md:mt-0">Art of programming ?</Subtitle>
-          </h2>
-        </Wrapper>
-      </LandingSection>
-    </div>
+    <LandingSection>
+      <Wrapper>
+        <span className="konst-year">Konst {new Date().getFullYear()}</span>
+        <h2>
+          <div>Can you beat your friends in the</div>
+          <div className="title">Art of programming ?</div>
+        </h2>
+        <p>
+          Konst lets you engage or source top developers with hackathons, while also enabling you to
+          assess, interview and upskill them with ease.
+        </p>
+      </Wrapper>
+    </LandingSection>
   );
 };
 

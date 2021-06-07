@@ -1,8 +1,23 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
+import { viewport } from "../../theme";
 
 export const transistion = {
   popup: () => "cubic-bezier(0.075, 0.82, 0.165, 1)",
 };
+
+const media = {};
+const mediaStyles = (width) => {
+  return (styles) => css`
+    @media (min-width: ${width}px) {
+      ${styles}
+    }
+  `;
+};
+Object.keys(viewport).forEach((size) => {
+  media[size] = mediaStyles(viewport[size]);
+});
+
+export { media };
 
 export const opacity =
   (value = 0) =>
