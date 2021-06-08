@@ -19,13 +19,18 @@ const Wrapper = styled.section`
     gap: 5rem;
     & > section {
       flex: 1;
-      /* border: 1px solid #fff; */
     }
   }
-
   .graphic-content {
-    // update fradient from figma
-    background-image: linear-gradient(0deg, #000000a0 30%, #fff1), url(${() => technofestImage});
+    // todo update fradient from figma
+    background-image: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(49, 49, 49, 0.12) 46.35%,
+        #000000 100%
+      ),
+      /* url(${() => technofestImage}); */
+        url(https://images.unsplash.com/cdphoto-1552345386-6690de5b2c09?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);
     background-size: cover;
     background-position: center;
     border-radius: 0.5rem;
@@ -39,9 +44,10 @@ const Wrapper = styled.section`
 
   .contest-name {
     font-size: 2.25rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.2rem;
     line-height: 1;
+    text-overflow: ellipsis;
   }
   time.contest-time {
     color: ${putTheme("primary")};
@@ -58,6 +64,7 @@ const Wrapper = styled.section`
   .event-meta-data {
     flex: 1;
     margin-bottom: 1rem;
+    position: relative;
     .title {
       font-size: 2.25rem;
       font-weight: 600;
@@ -75,6 +82,17 @@ const Wrapper = styled.section`
       display: flex;
       align-items: center;
       gap: 0.5rem;
+    }
+    ::before {
+      content: "";
+      transform: translateY(-5%);
+      position: absolute;
+      inset: 0;
+      left: -30px;
+      height: 105%;
+      width: 3px;
+      border-radius: 1rem;
+      background-color: ${putTheme("secondary")};
     }
   }
   .description {

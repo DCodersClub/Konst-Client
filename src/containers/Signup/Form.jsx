@@ -70,13 +70,6 @@ const Form = () => {
         {medium ? <GroupField>{nameField}</GroupField> : nameField}
         <EmailField errors={errors} touchedFields={touchedFields} register={register} />
         <PasswordField errors={errors} touchedFields={touchedFields} register={register} validate />
-        <PasswordField
-          errors={errors}
-          touchedFields={touchedFields}
-          label="Confirm Password"
-          register={register}
-          validate
-        />
       </div>
 
       <div className="pt-2">
