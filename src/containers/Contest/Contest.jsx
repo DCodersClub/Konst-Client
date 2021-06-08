@@ -29,8 +29,8 @@ const Wrapper = styled.section`
         rgba(49, 49, 49, 0.12) 46.35%,
         #000000 100%
       ),
-      /* url(${() => technofestImage}); */
-        url(https://images.unsplash.com/cdphoto-1552345386-6690de5b2c09?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);
+      url(https://images.unsplash.com/photo-1552345386-6690de5b2c09?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);
+    /* url(${() => technofestImage}); */
     background-size: cover;
     background-position: center;
     border-radius: 0.5rem;
