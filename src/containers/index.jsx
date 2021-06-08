@@ -13,6 +13,7 @@ import Signup from "./Signup/Signup";
 import Signin from "./SignIn/Signin";
 import Navbar from "../components/Navbar";
 import { loadUserData } from "../actions/user";
+import Contest from "./Contest/Contest";
 
 const App = () => {
   const oldTheme = useSelector((state) => state.theme);
@@ -40,6 +41,8 @@ const Routes = () => {
     <Switch>
       <Route exact path="/register" component={Signup} />
       <Route exact path="/login" component={Signin} />
+      <Route exact path="/contest" component={Contest} />
+
       <Route exact path="/" component={Home} />
       <Route>
         <div className="h-screen flex items-center justify-center">

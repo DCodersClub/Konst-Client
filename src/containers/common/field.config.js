@@ -44,4 +44,15 @@ export default {
       message: "Minimum eight characters, at least one letter and one number:",
     },
   },
+  confirmPassword: {
+    required: "Required",
+    minLenght: {
+      value: 7,
+      message: "Password Too Small",
+    },
+    pattern: {
+      value: regex.password,
+      message: "Minimum eight characters, at least one letter and one number:",
+    },
+  },
 };

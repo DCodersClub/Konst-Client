@@ -13,7 +13,7 @@ const PasswordField = ({ errors, touchedFields, register, validate, label }) => 
     <Field
       error={errors}
       touch={touchedFields.password}
-      name="password"
+      name={label ? "confirmPassword" : "password"}
       label={label ? label : "Password"}
       type="password"
       register={register("password", config)}

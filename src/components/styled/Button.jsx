@@ -30,7 +30,20 @@ const StyledButton = styled.button`
 
   :active {
     outline: none;
-    transform: scale(0.99);
+    transform: scale(0.98);
+  }
+`;
+
+const GlowButton = styled(StyledButton)`
+  box-shadow: 0 0 6px 0 ${putTheme("primary")}${opacity(0.8)};
+  transition: all 170ms ${transistion.popup};
+  :hover {
+    box-shadow: 0 0 10px 0 ${putTheme("primary")}${opacity(1)};
+    transition: all 1200ms ${transistion.popup};
+  }
+  :active {
+    outline: none;
+    transform: scale(0.98);
   }
 `;
 
@@ -122,6 +135,7 @@ const IntractiveButton = ({ children, tabIndex, onClick }) => {
 export const Button = ({ intractive, children, small, full, focusable, onClick, varient }) => {
   let Output = StyledButton;
   if (varient === "outlined") Output = OutlinedButton;
+  if (varient === "glow") Output = GlowButton;
   const tabIndex = focusable === false ? -1 : undefined;
   if (intractive)
     return (
